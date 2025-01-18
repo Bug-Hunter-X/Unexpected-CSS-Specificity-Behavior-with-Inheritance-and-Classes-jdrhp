@@ -1,0 +1,29 @@
+The following CSS code snippet suffers from an uncommon issue related to specificity and inheritance:
+
+```css
+div {
+  color: blue;
+}
+
+p {
+  color: red;
+}
+
+div p {
+  color: green;
+}
+
+.special-paragraph {
+  color: purple;
+}
+
+div .special-paragraph {
+  color: orange;
+}
+```
+
+The problem arises when attempting to style paragraphs within a `div` element while also applying a class to a specific paragraph. The specificity of the selectors determines which style is applied. 
+
+The `div p` selector has higher specificity than the `p` selector, thus overriding the default `p` style and applying `color: green`. However, the `div .special-paragraph` selector has even higher specificity, overriding both `div p` and `.special-paragraph` styles and setting the color to `orange`. This behavior might be unexpected if one intends to combine inherited styles with class-based styles.
+
+The unexpected behavior occurs when the intention is to have the class `.special-paragraph` modify only the paragraph, not overriding the parent's effect on the paragraph.  For instance, one might expect `color: purple` to be combined with the inherited `color: green`, or for some other merging logic to apply instead of complete overwriting.
